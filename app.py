@@ -105,17 +105,16 @@ def edit(plant_id):
         # TODO: Make an `update_one` database call to update the plant with the
         # given id. Make sure to put the updated fields in the `$set` object.
        
-
-
         new_value = {"$set": {
             "name": request.form.get("plant_name"),
             "variety": request.form.get("variety"),
             "photo_url": request.form.get("photo"),
-            "date_planted": request.form.get("date_planted"),
+            "date_planted": request.form.get("date_planted")
         }}
         plants_collection.update_one({"_id": plant_id}, new_value)
         
         return redirect(url_for('detail', plant_id=plant_id))
+
     else:
         # TODO: Make a `find_one` database call to get the plant object with the
         # passed-in _id.
@@ -131,12 +130,15 @@ def edit(plant_id):
 def delete(plant_id):
     # TODO: Make a `delete_one` database call to delete the plant with the given
     # id.
-    deleted_plant = {"======": ======}
-     ----------.delete_one(d=========)
+    deleted_plant = {'_id': ObjectId(plant_id)}
+    plants_collection.delete_one(deleted_plant)
 
     # TODO: Also, make a `delete_many` database call to delete all harvests with
     # the given plant id.
+    del_many = {'_id': ObjectId(plant_id)}
+    plants_collection.delete_many(del_many)
 
+    
     return redirect(url_for('plants_list'))
 
 if __name__ == '__main__':
